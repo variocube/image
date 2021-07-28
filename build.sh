@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 targets=${*:-amd64 raspi3}
 
 echo "Building targets: ${targets}"
@@ -14,11 +16,11 @@ mkdir -p ./build
 docker_run() {
   docker run --privileged \
     -v "$(pwd)/build:/build" \
-    -v "$(pwd)/config:/config" \
+    -v "$(pwd)/targets:/targets" \
     -v "$(pwd)/rootfs:/rootfs" \
-    -v "$(pwd)/rootfs-amd64:/rootfs-amd64" \
     -v "/proc:/proc" \
     -v "/dev:/dev" \
+    -v "/sys:/sys" \
     buildenv "$@"
 }
 
@@ -26,9 +28,6 @@ docker_run() {
 for target in ${targets}
 do
   echo "Building ${target}"
-  docker_run /usr/bin/vmdb2 \
-    --rootfs-tarball "/build/${target}_rootfs.tar.gz" \
-    --log "/build/${target}.log" \
-    --output "/build/${target}.img" \
-    "/config/${target}.yaml"
+  docker_run "/targets/${target}/build.sh" "/build/${target}.img"
 done
+
