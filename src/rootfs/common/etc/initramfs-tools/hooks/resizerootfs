@@ -13,11 +13,13 @@ esac
 
 . /usr/share/initramfs-tools/hook-functions
 
-# XXX: tail and realpath are included by default, right?
-#copy_exec /usr/bin/realpath
-#copy_exec /usr/bin/tail
-copy_exec /sbin/blkid
-copy_exec /bin/lsblk
-copy_exec /sbin/sfdisk
-copy_exec /sbin/partprobe
-copy_exec /sbin/resize2fs
+copy_exec /usr/bin/realpath
+copy_exec /usr/bin/tail
+copy_exec /usr/bin/grep
+copy_exec /usr/bin/lsblk
+copy_exec /usr/sbin/blkid
+copy_exec /usr/sbin/sfdisk
+copy_exec /usr/sbin/partprobe
+copy_exec /usr/sbin/resize2fs
+copy_exec /usr/sbin/fsck
+copy_exec /usr/sbin/e2fsck

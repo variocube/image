@@ -2,32 +2,22 @@
 
 set -e
 
-targets=${*:-amd64 raspi3}
+targets=${*:-amd64 raspi3 revpi3}
 
 echo "Building targets: ${targets}"
-
-echo "Building build environment"
-docker build -t buildenv ./buildenv
 
 echo "Creating build directory"
 mkdir -p ./build
 
-# Runs a command in the build environment
-docker_run() {
-  docker run --privileged \
-    -v "$(pwd)/build:/build" \
-    -v "$(pwd)/targets:/targets" \
-    -v "$(pwd)/rootfs:/rootfs" \
-    -v "/proc:/proc" \
-    -v "/dev:/dev" \
-    -v "/sys:/sys" \
-    buildenv "$@"
-}
+vagrant up
+vagrant rsync
+vagrant ssh-config >.vagrant/ssh-config
 
 # Build targets
 for target in ${targets}
 do
   echo "Building ${target}"
-  docker_run "/targets/${target}/build.sh" "/build/${target}.img"
+  vagrant ssh -c "cd / && sudo src/${target}.sh /image.img"
+  scp -F .vagrant/ssh-config default:/image.img "./build/${target}.img"
 done
 

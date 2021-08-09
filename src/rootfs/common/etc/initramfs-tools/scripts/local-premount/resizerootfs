@@ -26,25 +26,27 @@ if test -z "$free_space"; then
     exit 0
 fi
 
-log_begin_msg "$0 resizing $ROOT"
-
-# Unmount for safety
-umount "${rootmnt}"
+log_begin_msg "$0 expanding partition $rootpart_nr on $rootdev"
 
 # Expand the partition size to fill the entire device
 sfdisk -f $rootdev -N $rootpart_nr <<EOF
 ,+
 EOF
 
+log_end_msg
+
 wait_for_udev 5
 
 # Now resize the filesystem
+log_begin_msg "$0 reloading partitions on $rootdev"
 partprobe $rootdev
-resize2fs $rootpart
-
-# Remount root
-if ! mount -r ${FSTYPE:+-t "${FSTYPE}"} ${ROOTFLAGS} "${ROOT}" "${rootmnt?}"; then
-    panic "Failed to mount ${ROOT} as root file system."
-fi
-
 log_end_msg
+
+log_begin_msg "$0 checking filesystem on $rootpart"
+e2fsck -f $rootpart
+log_end_msg
+
+log_begin_msg "$0 resizing filesystem on $rootpart"
+resize2fs $rootpart
+log_end_msg
+

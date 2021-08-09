@@ -24,11 +24,11 @@ cleanup() {
 }
 trap cleanup EXIT
 
-qemu-img create -f raw "${output}" 1500M
+qemu-img create -f raw "${output}" 2048M
 
 parted -s "${output}" mklabel msdos
-parted -s "${output}" mkpart primary fat32 4MiB 68MiB
-parted -s "${output}" mkpart primary ext4 68MiB 100%
+parted -s "${output}" mkpart primary fat32 4MiB 260MiB
+parted -s "${output}" mkpart primary ext4 260MiB 100%
 
 mapfile -t LOOP_NAMES< <(kpartx -asv "$output" | awk '{print $3}')
 
@@ -49,5 +49,11 @@ mkdir -p "$FIRMWARE_DIR"
 mount "$FIRMWARE_DEV" "$FIRMWARE_DIR"
 
 # Bootstrap
-targets/bootstrap.sh raspi3 "$ROOT_DIR" arm64 raspi3-firmware linux-image-arm64 firmware-brcm80211
+src/bootstrap.sh raspi3 "$ROOT_DIR" arm64 raspi-firmware linux-image-arm64 firmware-brcm80211
 
+# Print df to check how much space is left on the firmware partition
+df
+
+# Patch cmdline.txt
+sed -i 's/^/console=ttyS1,115200 /' "$ROOT_DIR"/boot/firmware/cmdline.txt
+sed -i 's/.dev.mmcblk0p2/LABEL=ROOT/' "$ROOT_DIR"/boot/firmware/cmdline.txt
