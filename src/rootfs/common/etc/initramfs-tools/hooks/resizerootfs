@@ -19,7 +19,10 @@ copy_exec /usr/bin/grep
 copy_exec /usr/bin/lsblk
 copy_exec /usr/sbin/blkid
 copy_exec /usr/sbin/sfdisk
+copy_exec /usr/sbin/sgdisk
 copy_exec /usr/sbin/partprobe
 copy_exec /usr/sbin/resize2fs
 copy_exec /usr/sbin/fsck
+copy_exec /usr/sbin/fsck.ext4
 copy_exec /usr/sbin/e2fsck
+copy_exec /sbin/logsave

@@ -44,7 +44,7 @@ firmware with the one from the mainline kernel.
 Currently, the image only contains the `variocube-unit` package. Other packages must be installed on the running system.
 
 It would be desirable to install `variocube-kiosk` and `variocube-app-host`, but this is prevented by a SEGFAULT during
-installation of python.
+installation of python when running on qemu.
 
 ## Resources
 

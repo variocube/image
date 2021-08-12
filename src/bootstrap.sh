@@ -47,7 +47,7 @@ chroot "$ROOT_DIR" env DEBIAN_FRONTEND=noninteractive apt-get install \
     systemd-sysv locales sudo \
     netcat iproute2 iputils-ping iw wpasupplicant \
     usbutils lshw \
-    parted dosfstools \
+    parted dosfstools gdisk \
     ssh \
     vim less gnupg curl ca-certificates \
     "$@" # additional packages supplied as arguments
