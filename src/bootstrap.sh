@@ -58,8 +58,8 @@ chroot "$ROOT_DIR" adduser --system --shell /bin/bash --home /home/variocube --g
 chroot "$ROOT_DIR" usermod -a -G sudo variocube
 echo "variocube:ooCoo1uv!" | chroot "$ROOT_DIR" chpasswd
 
-# Set hostname
-echo "variocube" >${ROOT_DIR?}/etc/hostname
+# Remove hostname as it is generated in initramfs
+rm -f ${ROOT_DIR?}/etc/hostname
 
 # Clear SSH host keys, so they get regenerated on first boot
 rm -f ${ROOT_DIR?}/etc/ssh/ssh_host_*_key*

@@ -10,11 +10,17 @@ Bootstrapping, especially cross-arch with qemu, heavily depends on the Kernel an
 to build the image in virtual machine running the target system version (for now: bullseye).   
 
 TODO:
- - revpi: config.txt and cmdline.txt
- - revpi: has no initrd, how to resize rootfs?  
+ - open ssh server does not start
  - variocube-unit: npm rebuild fails during bootstrap
  - locale: https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory
  - build on Github
+
+## initramfs
+
+Across all targets an initramfs is deployed that does the following:
+
+ - Resize the root filesystem to the available disk space
+ - Generate the hostname (UUID)
 
 ## Targets
 

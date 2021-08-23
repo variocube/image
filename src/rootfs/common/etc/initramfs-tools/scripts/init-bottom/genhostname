@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#
+# List the soft prerequisites here.  This is a space separated list of
+# names, of scripts that are in the same directory as this one, that
+# must be run before this one can be.
+#
+PREREQS=""
+case $1 in
+    prereqs) echo "$PREREQS"; exit 0;;
+esac
+
+. /scripts/functions
+
+if test ! -f "$rootmnt/etc/hostname"; then
+  log_begin_msg "$0 Generating hostname"
+
+  # Remount root read-write for this operation
+  mount -o remount,rw "$ROOT" "$rootmnt"
+  cat /proc/sys/kernel/random/uuid >"$rootmnt/etc/hostname"
+  mount -o remount,ro "$ROOT" "$rootmnt"
+
+  log_end_msg
+fi

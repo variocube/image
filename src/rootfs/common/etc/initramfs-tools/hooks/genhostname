@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+#
+# List the soft prerequisites here.  This is a space separated list of
+# names, of scripts that are in the same directory as this one, that
+# must be run before this one can be.
+#
+PREREQS=""
+case $1 in
+    prereqs) echo "$PREREQS"; exit 0;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+# No dependencies on binaries. If needed, use:
+# copy_exec <binary>
