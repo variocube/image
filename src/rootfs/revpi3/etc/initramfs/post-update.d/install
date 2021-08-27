@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+version=$1
+initramfs=$2
+
+if [[ -z $version ]] || [[ -z $initramfs ]]; then
+  echo "Usage: $0 <version> <initramfs>"
+  exit 1
+fi
+
+#
+# Install initrd to firmware partition
+#
+echo "Installing $initramfs to /boot/firmware/initrd.img"
+cp "$initramfs" "/boot/firmware/initrd.img"

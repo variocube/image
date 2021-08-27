@@ -16,8 +16,19 @@ rootpart=$(resolve_device $ROOT)
 rootpart_nr=$(blkid -sPART_ENTRY_NUMBER -o value -p $rootpart)
 rootdev="/dev/$(lsblk -no pkname "$rootpart")"
 
-# Make sure GPT backup is at end of disk. This errors for MBR partitions, but that's okay.
-sgdisk -e "$rootdev"
+LOG=/run/initramfs/resizerootfs.log
+
+log() {
+  if [ "${quiet}" = n ]; then
+    logsave -a -s $LOG "$@"
+  else
+    logsave -a -s $LOG "$@" >/dev/null 2>&1
+  fi
+}
+
+# Move GPT backup to the end of the disk.  This is necessary for resizing.
+# This errors for MBR partitions, but it's safe to ignore that.
+log sgdisk -e "$rootdev"
 
 # Check if there's free space on the device (note: we align the first
 # partition at 4MB, so there's always at least 3MB free)
@@ -30,7 +41,7 @@ fi
 log_begin_msg "$0 expanding partition $rootpart_nr on $rootdev"
 
 # Expand the partition size to fill the entire device
-sfdisk -f "$rootdev" -N "$rootpart_nr" <<EOF
+log sfdisk -f "$rootdev" -N "$rootpart_nr" <<EOF
 ,+
 EOF
 
@@ -41,15 +52,15 @@ log_end_msg
 #
 
 log_begin_msg "$0 reloading partitions on $rootdev"
-partprobe "$rootdev"
+log partprobe "$rootdev"
 log_end_msg
 
 wait_for_udev 5
 
 log_begin_msg "$0 checking filesystem on $rootpart"
-e2fsck -p -f "$rootpart"
+log e2fsck -p -f "$rootpart"
 log_end_msg
 
 log_begin_msg "$0 resizing filesystem on $rootpart"
-resize2fs "$rootpart"
+log resize2fs "$rootpart"
 log_end_msg

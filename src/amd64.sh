@@ -70,7 +70,7 @@ mkdir -p "$EFI_DIR"
 mount "$EFI_DEV" "$EFI_DIR"
 
 # Bootstrap
-src/bootstrap.sh amd64 "$ROOT_DIR" amd64 linux-image-amd64 grub-efi-amd64 grub-pc-bin
+src/bootstrap.sh "$ROOT_DIR" amd64 common,amd64 linux-image-amd64 grub-efi-amd64 grub-pc-bin
 
 # Install GRUB
 mkdir -p "$ROOT_DIR/dev" "$ROOT_DIR/proc" "$ROOT_DIR/sys"

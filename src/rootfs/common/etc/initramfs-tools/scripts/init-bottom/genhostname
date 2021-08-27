@@ -17,7 +17,10 @@ if test ! -f "$rootmnt/etc/hostname"; then
 
   # Remount root read-write for this operation
   mount -o remount,rw "$ROOT" "$rootmnt"
-  cat /proc/sys/kernel/random/uuid >"$rootmnt/etc/hostname"
+  hostname=$(cat /proc/sys/kernel/random/uuid)
+  echo "$hostname" >"$rootmnt/etc/hostname"
+  echo "127.0.0.1 $hostname" >>"$rootmnt/etc/hosts"
+  echo "::1 $hostname" >>"$rootmnt/etc/hosts"
   mount -o remount,ro "$ROOT" "$rootmnt"
 
   log_end_msg

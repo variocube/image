@@ -21,3 +21,4 @@ do
   scp -F .vagrant/ssh-config default:/image.img "./build/${target}.img"
 done
 
+vagrant halt

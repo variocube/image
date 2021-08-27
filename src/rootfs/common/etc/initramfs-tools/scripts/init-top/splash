@@ -1,0 +1,33 @@
+#!/bin/sh
+
+SPLASH="false"
+
+for ARGUMENT in $(cat /proc/cmdline)
+do
+  case "${ARGUMENT}" in
+    splash*)
+      SPLASH="true"
+      ;;
+
+    nosplash*)
+      SPLASH="false"
+      ;;
+  esac
+done
+
+if [ "${SPLASH}" = "true" ]; then
+  if [ ! -x /bin/plymouth ]; then
+    cat <<- "EOM"
+
+
+    ██    ██  █████  ██████  ██  ██████   ██████ ██    ██ ██████  ███████
+    ██    ██ ██   ██ ██   ██ ██ ██    ██ ██      ██    ██ ██   ██ ██
+    ██    ██ ███████ ██████  ██ ██    ██ ██      ██    ██ ██████  █████
+     ██  ██  ██   ██ ██   ██ ██ ██    ██ ██      ██    ██ ██   ██ ██
+      ████   ██   ██ ██   ██ ██  ██████   ██████  ██████  ██████  ███████
+
+
+EOM
+  fi
+fi
+

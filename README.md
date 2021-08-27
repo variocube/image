@@ -1,6 +1,6 @@
 # Image
 
-Image builder for Variocube OS.
+Image builder for Variocube OS on multiple architectures.
 
 Inspired by:
  - https://salsa.debian.org/raspi-team/image-specs/-/tree/master
@@ -10,15 +10,14 @@ Bootstrapping, especially cross-arch with qemu, heavily depends on the Kernel an
 to build the image in virtual machine running the target system version (for now: bullseye).   
 
 TODO:
- - open ssh server does not start
- - variocube-unit: npm rebuild fails during bootstrap
- - locale: https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory
+ - boot graphics (grub, plymouth, transition to X)
  - build on Github
 
 ## initramfs
 
 Across all targets an initramfs is deployed that does the following:
 
+ - Show a simple text based splash screen (might be replaced with graphical boot)
  - Resize the root filesystem to the available disk space
  - Generate the hostname (UUID)
 

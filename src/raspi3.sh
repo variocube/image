@@ -49,7 +49,7 @@ mkdir -p "$FIRMWARE_DIR"
 mount "$FIRMWARE_DEV" "$FIRMWARE_DIR"
 
 # Bootstrap
-src/bootstrap.sh raspi3 "$ROOT_DIR" arm64 raspi-firmware linux-image-arm64 firmware-brcm80211
+src/bootstrap.sh "$ROOT_DIR" arm64 common,raspi3 raspi-firmware linux-image-arm64 firmware-brcm80211
 
 # Print df to check how much space is left on the firmware partition
 df
