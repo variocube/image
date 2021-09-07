@@ -19,6 +19,7 @@ do
   echo "Building ${target}"
   vagrant ssh -c "cd / && sudo src/${target}.sh /image.img"
   scp -F .vagrant/ssh-config default:/image.img "./build/${target}.img"
+  xz -fk -9 -T0 "./build/${target}.img"
 done
 
 vagrant halt
