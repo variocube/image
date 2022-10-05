@@ -1,5 +1,7 @@
 name: release
-on: [release, push]
+on:
+  push:
+    tags: ["*"]
 
 jobs:
   build:
@@ -12,6 +14,8 @@ jobs:
           dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time \
           parted kpartx rsync curl
     - run: sudo ./build.sh
-    # TODO: Compress and upload
-    # - run: ./compress.sh
-
+    - run: sudo ./compress.sh
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./build/*.xz

@@ -6,12 +6,13 @@ Inspired by:
  - https://salsa.debian.org/raspi-team/image-specs/-/tree/master
  - https://github.com/onlinegroupat/variocube_os_image
 
-Bootstrapping, especially cross-arch with qemu, heavily depends on the Kernel and qemu version. Therefore, it's best
-to build the image in virtual machine running the target system version (for now: bullseye).
+Bootstrapping, especially cross-arch with qemu, heavily depends on the Kernel and qemu version. It is required to
+run this on a fairly recent version of a Debian-based distribution:
+ - In a virtual machine with the Vagrant setup included in this repo (see [vagrant_build.sh](vagrant_build.sh) and [Vagrantfile](Vagrantfile)) using Debian Bullseye
+ - On GitHub using the new `ubuntu-22.04` image (see [release workflow](.github/workflows/release.yml))
 
 TODO:
  - boot graphics (grub, plymouth, transition to X)
- - build on Github
 
 ## initramfs
 
@@ -33,8 +34,7 @@ as additional space for grub to store its `core.img`.
 
 ### raspi3
 
-The `raspi3` target uses the mainline kernel and the `arm64` architecture. This would be the preferred setup, however
-it **currently does not work** due to kvm/qemu related errors during bootstrap.
+The `raspi3` target uses the mainline kernel and the `arm64` architecture.
 
 The image contains a boot partition with the firmware required for boot. 
 
