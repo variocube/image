@@ -9,9 +9,16 @@ echo "Building targets: ${targets}"
 echo "Creating build directory"
 mkdir -p ./build
 
+vagrant up
+vagrant rsync
+vagrant ssh-config >.vagrant/ssh-config
+
 # Build targets
 for target in ${targets}
 do
   echo "Building ${target}"
-  "src/${target}.sh" "./build/${target}.img"
+  vagrant ssh -c "cd / && sudo src/${target}.sh /image.img"
+  scp -F .vagrant/ssh-config default:/image.img "./build/${target}.img"
 done
+
+vagrant halt

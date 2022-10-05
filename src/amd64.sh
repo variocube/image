@@ -33,7 +33,7 @@ cleanup() {
 trap cleanup EXIT
 
 # Create image
-qemu-img create -f raw "${output}" 2048M
+qemu-img create -f raw "${output}" 3G
 
 # Partition
 parted -s "${output}" mklabel gpt

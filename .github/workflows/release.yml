@@ -1,0 +1,13 @@
+name: release
+on: [release]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker/setup-qemu-action@v1
+    - run: ./build.sh
+    # TODO: Compress and upload
+    # - run: ./compress.sh
+

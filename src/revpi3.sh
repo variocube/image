@@ -24,7 +24,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-qemu-img create -f raw "${output}" 2048M
+qemu-img create -f raw "${output}" 3G
 
 parted -s "${output}" mklabel msdos
 parted -s "${output}" mkpart primary fat32 4MiB 260MiB
