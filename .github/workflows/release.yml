@@ -6,7 +6,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
-    - uses: docker/setup-qemu-action@v1
+    - run: |
+        apt-get update
+        apt-get install --no-install-recommends -y \
+          dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time \
+          parted kpartx rsync curl
     - run: ./build.sh
     # TODO: Compress and upload
     # - run: ./compress.sh
