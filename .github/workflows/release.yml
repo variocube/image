@@ -7,8 +7,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        apt-get update
-        apt-get install --no-install-recommends -y \
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends -y \
           dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time \
           parted kpartx rsync curl
     - run: ./build.sh
