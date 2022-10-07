@@ -38,11 +38,15 @@ The `raspi3` target uses the mainline kernel and the `arm64` architecture.
 
 The image contains a boot partition with the firmware required for boot. 
 
-### revpi3
+### revpi
 
-The Compute Module in the RevolutionPi 3 does not work with the mainline kernel. Therefore, we use `rpi-update` to
+The Compute Module in the RevolutionPi does not work with the mainline kernel. Therefore, we use `rpi-update` to
 install the firmware and kernel to the boot partition. Please note that this setup also requires using the `armhf`
 architecture.
+
+The `revpi` image is confirmed to run on:
+ - RevPi Core S
+ - RevPi Core 3+
 
 We still need an init ramdisk to resize the root fs. Therefore, we do install a mainline kernel. Once it supports
 the RevolutionPi, an upgrade is basically installing `raspi-firmware`. This would automatically replace the existing

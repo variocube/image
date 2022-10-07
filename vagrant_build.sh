@@ -2,7 +2,7 @@
 
 set -e
 
-targets=${*:-amd64 raspi3 revpi3}
+targets=${*:-amd64 raspi3 revpi}
 
 echo "Building targets: ${targets}"
 
