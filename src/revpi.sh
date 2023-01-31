@@ -54,7 +54,14 @@ src/bootstrap.sh "$ROOT_DIR" armhf common,raspi3,revpi binutils linux-image-armm
 # Install and run rpi-update
 curl -L --output "$ROOT_DIR"/usr/sbin/rpi-update https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update
 chmod +x "$ROOT_DIR"/usr/sbin/rpi-update
-chroot "$ROOT_DIR" env ROOT_PATH=/ BOOT_PATH=/boot/firmware SKIP_WARNING=1 WANT_PI4=1 /usr/sbin/rpi-update
+chroot "$ROOT_DIR" env        \
+  ROOT_PATH=/                 \
+  BOOT_PATH=/boot/firmware    \
+  SKIP_WARNING=1              \
+  WANT_32BIT=1                \
+  WANT_64BIT=1                \
+  WANT_PI4=1                  \
+  /usr/sbin/rpi-update
 
 cat >"$FIRMWARE_DIR"/cmdline.txt <<- EOF
 dwc_otg.lpm_enable=0 console=tty1 root=LABEL=ROOT rootfstype=ext4 elevator=deadline rootwait quiet splash
