@@ -49,7 +49,7 @@ debootstrap --arch "$ARCH" \
 chroot "$ROOT_DIR" apt-get update
 chroot "$ROOT_DIR" env DEBIAN_FRONTEND=noninteractive apt-get install \
   -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" --force-yes -y --no-install-recommends \
-    systemd-sysv console-setup locales sudo dbus-user-session bsdmainutils \
+    systemd-sysv systemd-timesyncd console-setup locales sudo dbus-user-session bsdmainutils \
     ssh netcat iproute2 iputils-ping \
     usbutils lshw \
     parted dosfstools gdisk \
