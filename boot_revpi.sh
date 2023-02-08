@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-sudo qemu-system-aarch64 \
+qemu-img resize build/revpi.img 4G
+
+qemu-system-aarch64 \
   -kernel build/revpi.img-firmware/kernel8.img \
   -dtb build/revpi.img-firmware/bcm2710-rpi-3-b.dtb \
   -initrd build/revpi.img-firmware/initrd.img \
