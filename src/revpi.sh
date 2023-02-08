@@ -77,3 +77,6 @@ initramfs initrd.img
 dtoverlay=dwc2,dr_mode=host
 
 EOF
+
+# Copy firmware along the output file
+cp -r "$FIRMWARE_DIR" "$output"-firmware

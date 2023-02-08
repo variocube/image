@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# TODO: we need the kernel and initrd for booting the revpi image.
-# They should be extracted during build.
-# A nic might be emulated by default, but would need to be configured.
-
 sudo qemu-system-aarch64 \
+  -kernel build/revpi.img-firmware/kernel8.img \
+  -dtb build/revpi.img-firmware/bcm2710-rpi-3-b.dtb \
+  -initrd build/revpi.img-firmware/initrd.img \
+  -append "root=/dev/mmcblk0p2 console=ttyAMA0,115200" \
   -machine raspi3b \
-  -smp 4 -m 1024 \
+  -cpu cortex-a53 \
   -serial stdio \
-  -drive file=build/revpi.img,format=raw,index=0,media=disk \
-  -boot once=c,menu=off,strict=off \
+  -device usb-net,netdev=net0 \
+  -netdev user,id=net0,hostfwd=tcp::5022-:22 \
+  -drive id=hd-root,file=build/revpi.img,format=raw \
+  -usbdevice keyboard \
   -name variocube-revpi
-# -kernel build/revpi/kernel.img
-# -initrd build/revpi/initrd.img
