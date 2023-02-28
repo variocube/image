@@ -54,7 +54,7 @@ chroot "$ROOT_DIR" env DEBIAN_FRONTEND=noninteractive apt-get install \
     usbutils lshw \
     parted dosfstools gdisk \
     python3 \
-    vim less gnupg curl htop \
+    vim less gnupg curl htop jq \
     variocube-unit variocube-app-host variocube-kiosk \
     "$@" # additional packages supplied as arguments
 
