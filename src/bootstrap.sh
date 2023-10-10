@@ -55,6 +55,7 @@ chroot "$ROOT_DIR" env DEBIAN_FRONTEND=noninteractive apt-get install \
     parted dosfstools gdisk \
     python3 \
     vim less gnupg curl htop jq \
+    wget xz-utils kpartx progress \
     variocube-unit variocube-app-host variocube-kiosk \
     variocube-driver-nfc-serial variocube-driver-barcode-serial \
     "$@" # additional packages supplied as arguments

@@ -5,7 +5,7 @@ die() {
 	exit 1
 }
 
-apt -y install wget xz-utils kpartx || die "Error: Could not install required packages."
+apt -y install wget xz-utils kpartx progress || die "Error: Could not install required packages."
 
 VERSION=$1
 if [[ -z "$VERSION" ]] ; then
