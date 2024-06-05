@@ -41,16 +41,17 @@ done
 
 # Bootstrap base system
 debootstrap --arch "$ARCH" \
-  --components main,contrib,non-free \
+  --components main,contrib,non-free-firmware \
   --include ca-certificates \
-  bullseye "$ROOT_DIR" http://deb.debian.org/debian
+  bookworm "$ROOT_DIR" http://deb.debian.org/debian
 
 # Install packages
 chroot "$ROOT_DIR" apt-get update
 chroot "$ROOT_DIR" env DEBIAN_FRONTEND=noninteractive apt-get install \
   -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" --force-yes -y --no-install-recommends \
-    systemd-sysv systemd-timesyncd console-setup locales sudo dbus-user-session bsdmainutils \
-    ssh netcat iproute2 iputils-ping \
+    systemd-sysv systemd-timesyncd systemd-resolved \
+    console-setup locales sudo dbus-user-session bsdmainutils \
+    ssh netcat-openbsd iproute2 iputils-ping \
     usbutils lshw \
     parted dosfstools gdisk \
     python3 \

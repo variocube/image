@@ -13,6 +13,7 @@ run this on a fairly recent version of a Debian-based distribution:
 
 TODO:
  - boot graphics (grub, plymouth, transition to X)
+ - upgrade to wayland and pipewire 
 
 ## initramfs
 
